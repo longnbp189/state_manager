@@ -9,8 +9,12 @@ class MapStateManager<K, V> extends BaseStateManager<Map<K, V>> {
   );
 
   void addItem(K key, V itemValue) {
-    final updatedMap = Map<K, V>.from(value.value)..[key] = itemValue;
-    update(updatedMap);
+    if (value.value.containsKey(key)) {
+      Logger.info("Key already exists: $key");
+    } else {
+      final updatedMap = Map<K, V>.from(value.value)..[key] = itemValue;
+      update(updatedMap);
+    }
   }
 
   void addAllItems(Map<K, V> items) {
